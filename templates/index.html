@@ -1,0 +1,18 @@
+<table border="1">
+  <tr>
+  　<th>ID</th>
+    <th>日付</th>
+    <th>温度</th>
+    <th>湿度</th>
+  </tr>
+  {% for row in results %}
+  <tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+    <td>{{ row[3] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<button onclick="location.href='/redirect'">Go to Other Page</button>

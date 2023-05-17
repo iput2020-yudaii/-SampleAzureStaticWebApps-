@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<body>
+  <canvas id="chart-container"></canvas>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // サーバから受け取ったデータを取得
+    var results = {{ results | tojson }};
+
+    // グラフの描画処理
+    var ctx = document.getElementById('chart-container').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: results.map(function(row) { return row[1]; }),
+        datasets: [{
+          label: '温度',
+          data: results.map(function(row) { return row[2]; }),
+          borderColor: 'red',
+          fill: false
+        }, {
+          label: '湿度',
+          data: results.map(function(row) { return row[3]; }),
+          borderColor: 'blue',
+          fill: false
+        }]
+      }
+    });
+  });
+</script>
