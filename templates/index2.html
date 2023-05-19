@@ -1,0 +1,27 @@
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>日付</th>
+    <th>温度</th>
+    <th>湿度</th>
+  </tr>
+  {% for row in results %}
+  <tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+    <td>{{ row[3] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<form action="/" method="get">
+  <label for="interval">表示間隔:</label>
+  <select name="interval" id="interval">
+    <option value="day">1日</option>
+    <option value="week">1週間</option>
+  </select>
+  <input type="submit" value="データ表示">
+</form>
+
+<button onclick="location.href='/redirect'">グラフを表示</button>
