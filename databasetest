@@ -1,0 +1,36 @@
+import pymysql
+# MySQLサーバへの接続情報を設定する
+hostname = 'solution-db.mysql.database.azure.com'
+port = 3306
+username = 'ono'
+password = 'Solution123'
+database = 'solution-test'
+ssl_ca = 'C://Users//yudai//gitwork1//DigiCertGlobalRootCA.crt.pem'
+# MySQLサーバに接続する
+try:
+    pymysql.connect(host=hostname, port=port, user=username, password=password, database=database, ssl={'ca': ssl_ca})
+    print('MySQLサーバに接続できました。')
+except Exception as e:
+    print('MySQLサーバへの接続に失敗しました。')
+    print(e)
+
+
+
+
+<table border="1">
+  <tr>
+  　<th>ID</th>
+    <th>日付</th>
+    <th>温度</th>
+    <th>湿度</th>
+  </tr>
+  {% for row in results %}
+  <tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+    <td>{{ row[3] }}</td>
+  </tr>
+  {% endfor %}
+</table>
+

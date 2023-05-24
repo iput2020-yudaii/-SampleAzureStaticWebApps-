@@ -2,6 +2,8 @@
 from flask import Flask, render_template
 from flask import redirect, url_for
 import pymysql
+from flask import Flask, jsonify
+import datetime
 
 # Flaskアプリケーションの設定
 app = Flask(__name__)
@@ -14,6 +16,8 @@ password = 'Solution123'
 database = 'solution-test'
 ssl_ca = 'C://Users//yudai//gitwork1//DigiCertGlobalRootCA.crt.pem'
 
+
+
 # index関数とother関数どちらもresults変数が使用できるMySQLからデータを取得する共通の関数
 def get_results():
     # MySQLサーバに接続する
@@ -21,10 +25,12 @@ def get_results():
     
     # テーブルからデータを取得する
     with connection.cursor() as cursor:
-        sql = 'SELECT * FROM datatable'
+        sql = 'SELECT * FROM sensor_data'
         cursor.execute(sql)
         # 取り出したものを1件ずつ表示させるfetchall()
         results = cursor.fetchall()
+
+        #sテーブル変更により以下修正する必要あり
         results = [(int(row[0]), row[1], float(row[2]), float(row[3])) for row in results]
     return results
 
@@ -32,10 +38,20 @@ def get_results():
 @app.route('/')
 def index():
     results = get_results()
-    print(results)
+    #print(results)
     
     # テンプレートを使用してHTMLをレンダリングする
     return render_template('index.html', results=results)
+
+#@app.route('/')
+#def index():
+#   return app.send_static_file('index.html')
+
+
+@app.route('/time')
+def get_time():
+    current_time = datetime.datetime.now().strftime('%H:%M:%S')
+    return jsonify({'time': current_time})
     
 
 # 他のページに移動する
